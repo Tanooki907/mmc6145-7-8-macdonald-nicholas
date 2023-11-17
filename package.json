@@ -1,22 +1,35 @@
 {
-  "name": "weather-now",
+  "name": "mysql-auth",
   "version": "0.1.0",
   "private": true,
+  "config": {
+    "DB_NAME": "mysql_project_db"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run mysql && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "mysql": "npm run mysql:restart && npm run mysql:check",
+    "mysql:restart": "npm run mysql:stop; npm run mysql:start",
+    "mysql:start": "export FLAG=-d && npm run mysql:run",
+    "mysql:start:log": "export FLAG=-it && npm run mysql:run",
+    "mysql:start:shell": "npm run mysql:restart && npm run mysql:check && npm run mysql:shell",
+    "mysql:run": "docker run $FLAG --rm -p 3306:3306 -v $(pwd)/db/schema:/docker-entrypoint-initdb.d --name=mysql-sandbox -e MYSQL_ALLOW_EMPTY_PASSWORD=root -e MYSQL_DATABASE=$npm_package_config_DB_NAME mysql:8 mysqld --authentication_policy=mysql_native_password",
+    "mysql:stop": "docker container stop mysql-sandbox",
+    "mysql:shell": "docker exec -it mysql-sandbox mysql",
+    "mysql:check": "until docker exec mysql-sandbox mysql -e \"use $npm_package_config_DB_NAME; show tables;\"; do echo ...; sleep 1; done"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "mysql": "^2.18.1",
-    "next": "14.0.1",
-    "react": "^18",
-    "react-dom": "^18"
+    "bcrypt": "^5.1.0",
+    "iron-session": "^6.3.1",
+    "mysql2": "^2.3.3",
+    "next": "13.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.0.1"
+    "eslint": "8.26.0",
+    "eslint-config-next": "13.0.0"
   }
 }

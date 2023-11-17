@@ -18,6 +18,10 @@ const Signup = () => {
             });
             const data = await response.json();
             console.log(data);
+
+            if (data.redirectURL) {
+                window.location.href = data.redirectURL;
+            }
         } catch (error) {
             console.error('Error signing up:', error);
         }

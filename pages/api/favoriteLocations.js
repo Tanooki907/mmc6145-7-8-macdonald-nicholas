@@ -9,8 +9,8 @@ export default async function handler(req, res) {
     }
   
     try {
-      const query = 'SELECT * FROM favorite_locations WHERE user_id = ?';
-      const [rows] = await query(query, [userId]);
+      const ask = 'SELECT * FROM favorite_locations WHERE user_id = ?';
+      const [rows] = await query(ask, [userId]);
       res.status(200).json(rows);
     } catch (error) {
       console.error('Error executing database query:', error);

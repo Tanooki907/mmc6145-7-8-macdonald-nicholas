@@ -3,9 +3,9 @@ const mysql = require('mysql');
 // Create a MySQL connection pool
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'your_username',
-  password: 'your_password',
-  database: 'your_database',
+  user: 'root',
+  password: '',
+  database: 'weather_data',
 });
 
 // Function to execute a database query
