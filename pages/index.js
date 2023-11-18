@@ -5,16 +5,35 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link'; // Remove when possible - just testing
 import styles from './index.module.css';
 import TopBar from '@/components/TopBar';
+import sessionOptions from "../config/session";
+import { withIronSessionSsr } from "iron-session";
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req }) {
+    const user = req.session.user;
+    const props = {};
+    if (user) {
+      props.user = req.session.user;
+      props.isLoggedIn = true;
+    } else {
+      props.isLoggedIn = false;
+    }
+    return { props };
+  },
+  sessionOptions
+);
 
 export default function Home() {
   const router = useRouter();
   const [location, setLocation] = useState('');
 
   useEffect(() => {
-    fetch('/api/favoriteLocations')
+    if (props.isLoggedIn) {
+      fetch('/api/favoriteLocations')
       .then((response) => response.json())
-      .then((data) => setLocations(data))
+      .then((data) => setLocation(data))
       .catch((error) => console.error('Error fetching favorite locations:', error));
+    }
   }, []);
 
   const handleSearch = (e) => {
@@ -29,7 +48,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TopBar />
+      <TopBar loggedIn={props.isLoggedIn}/>
 
       <main className={styles.main}>
         <h1 className={styles.h1}>Welcome to WeatherNow</h1>
@@ -56,31 +75,3 @@ export default function Home() {
     </div>
   );
 }
-
-Home.getInitialProps = async (ctx) => {
-  const { req } = ctx;
-  const userId = req?.cookies.userId;
-
-  if (userId) {
-    const loggedIn = true;
-
-    try {
-      const query = 'SELECT * FROM favorite_locations WHERE user_id = ?';
-      const [rows] = await query(query, [userId]);
-
-      if (rows.length > 0) {
-        const locations = rows.map((row) => row.location);
-        console.log('User has favorite locations:', rows);
-        return { loggedIn, locations };
-      } else {
-        const locations = [];
-        console.log('User does not have any favorite locations');
-        return { loggedIn, locations };
-      }
-    } catch (error) {
-      console.error('Error executing MySQL query:', error);
-    }
-  }
-
-  return {};
-};

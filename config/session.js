@@ -1,4 +1,4 @@
-export default {
+const sessionOptions = {
   cookieName: "mysql_auth_cookie",
   password: process.env.IRON_PASS,
   // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
@@ -6,3 +6,5 @@ export default {
     secure: process.env.NODE_ENV === "production",
   },
 }
+
+export default sessionOptions;

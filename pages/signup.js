@@ -3,28 +3,32 @@ import Link from 'next/link';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+  
     const handleSignup = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch('/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, email, password }),
-            });
-            const data = await response.json();
-            console.log(data);
-
-            if (data.redirectURL) {
-                window.location.href = data.redirectURL;
-            }
-        } catch (error) {
-            console.error('Error signing up:', error);
+      e.preventDefault();
+  
+      try {
+        const response = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          // Signup successful, redirect to dashboard
+          window.location.href = '/';
+        } else {
+          // Signup failed, display error message
+          console.error(data.error);
         }
+      } catch (error) {
+        console.error('Error signing up:', error);
+      }
     };
 
     return (
@@ -36,12 +40,6 @@ const Signup = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                />
-                <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                 type="password"

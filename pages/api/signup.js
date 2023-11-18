@@ -6,11 +6,11 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     // Call the signup function from userController
-    signup(username, email, password, async (err, userId) => {
+    signup(username, password, async (err, userId) => {
       if (err) {
         console.error("Error registering user", err);
         res.status(500).json({ error: "Error registering user" });
