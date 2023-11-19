@@ -4,7 +4,7 @@ const config = process.env.DB_CONNECTION_URL || {
   connectionLimit: 10,
   host: "localhost",
   user: "root",
-  database: "project_db",
+  database: "weather_data",
 };
 const db = mysql.createPool(config);
 

@@ -1,7 +1,3 @@
-CREATE DATABASE weather_data;
-
-USE weather_data;
-
 /* User Profiles Table */
 CREATE TABLE user_profiles (
     id INT AUTO_INCREMENT PRIMARY KEY,

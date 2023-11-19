@@ -2,11 +2,10 @@ import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Link from 'next/link'; // Remove when possible - just testing
 import styles from './index.module.css';
 import TopBar from '@/components/TopBar';
 import sessionOptions from "../config/session";
-import { withIronSessionSsr } from "iron-session";
+import { withIronSessionSsr } from "iron-session/next";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
@@ -23,7 +22,7 @@ export const getServerSideProps = withIronSessionSsr(
   sessionOptions
 );
 
-export default function Home() {
+export default function Home(props) {
   const router = useRouter();
   const [location, setLocation] = useState('');
 
@@ -66,10 +65,6 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-                {/* Just for testing purposes */}
-                <Link href={`/location/Gainesville`} style={{color: 'blue', textDecoration: 'underline'}}>
-          Testing the Link for Gainesville
-        </Link>
         <p>© {new Date().getFullYear()} WeatherNow. All rights reserved.</p>
       </footer>
     </div>

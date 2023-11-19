@@ -5,7 +5,7 @@ const TopBar = ({ loggedIn, locations }) => {
         <div className="top-bar">
             <div className="left-section">
                 <Link href="/" className="logo">
-                    WeatherNow <span className="weather-emoji">&#127751;</span>
+                    <span className="weather-emoji">&#127751;</span> WeatherNow
                 </Link>
             </div>
             <div className="right-section">

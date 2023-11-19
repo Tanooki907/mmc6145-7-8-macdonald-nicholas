@@ -6,12 +6,14 @@ export async function create(username, password) {
   if (!(username && password))
     throw new Error('Must include username and password')
   const passwordHash = await hash(password, 10)
+  console.log('password hashed');
   await db.query(
-    `INSERT INTO users (username, password) VALUES (?, ?)`,
+    `INSERT INTO user_profiles (username, password) VALUES (?, ?)`,
     [username, passwordHash]
   )
+  console.log('inserted');
   const [[user]] = await db.query(
-    `SELECT * FROM users WHERE username=?`,
+    `SELECT * FROM user_profiles WHERE username=?`,
     [username]
   )
   if (!user)

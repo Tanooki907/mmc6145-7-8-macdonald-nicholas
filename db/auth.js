@@ -5,7 +5,7 @@ export async function login(username, password) {
   if (!(username && password))
     throw new Error('Must include username and password')
   const [[user]] = await db.query(
-    `SELECT * FROM users WHERE username=?`,
+    `SELECT * FROM user_profiles WHERE username=?`,
     [username]
   )
   if (!user)

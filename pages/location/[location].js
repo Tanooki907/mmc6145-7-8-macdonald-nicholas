@@ -4,7 +4,24 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './[location].module.css'
 import Link from 'next/link'; // Remove when possible - just testing
-// Import other necessary modules and components
+import TopBar from '@/components/TopBar';
+import sessionOptions from "../config/session";
+import { withIronSessionSsr } from "iron-session/next";
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req }) {
+    const user = req.session.user;
+    const props = {};
+    if (user) {
+      props.user = req.session.user;
+      props.isLoggedIn = true;
+    } else {
+      props.isLoggedIn = false;
+    }
+    return { props };
+  },
+  sessionOptions
+);
 
 const LocationPage = () => {
     const router = useRouter();
@@ -30,11 +47,13 @@ const LocationPage = () => {
       }, [location]);
   
       return (
-        <div className={styles.main}>
+        <div>
           <Head>
-        <title>WeatherNow</title>
+        <title>Forecast for {location} - WeatherNow</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <TopBar loggedIn={props.isLoggedIn}/>
 
           <h1 className={styles.h1}>Weather Information for {location}</h1>
           {latitude && longitude ? (
