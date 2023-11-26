@@ -2,10 +2,13 @@ import { useState } from 'react';
 import Link from 'next/link';
 import TopBar from '@/components/TopBar';
 import styles from './index.module.css';
+import { useRouter } from 'next/router';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const router = useRouter();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -48,6 +51,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 />
+                {error && <p>{error}</p>}
                 <button className={styles.button} type="submit">Login</button>
             </form>
 

@@ -47,7 +47,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TopBar loggedIn={props.isLoggedIn}/>
+      <TopBar loggedIn={props.isLoggedIn} locations={location || ''}/>
 
       <main className={styles.main}>
         <h1 className={styles.h1}>Welcome to WeatherNow</h1>
@@ -56,7 +56,7 @@ export default function Home(props) {
             className={styles.input}
             type="text"
             placeholder="Enter a location"
-            value={location}
+            value={''}
             onChange={(e) => setLocation(e.target.value)}
           />
           <button className={styles.button} type="submit">Search</button>

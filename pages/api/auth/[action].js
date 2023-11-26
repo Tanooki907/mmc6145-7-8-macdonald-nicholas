@@ -22,14 +22,18 @@ export default withIronSessionApiRoute(
 
 async function login(req, res) {
   const { username, password } = req.body
+  console.log('starting');
   try {
     const {
       password: _,
       ...otherFields
     } = await db.auth.login(username, password)
     req.session.user = otherFields
+    console.log('saving');
     await req.session.save()
-    res.status(200).end()
+    console.log('saved');
+    console.log(req.session)
+    res.redirect('/');
   } catch(err) {
     res.status(400).json({error: err.message})
   }
@@ -47,6 +51,7 @@ async function signup(req, res) {
     } = await db.user.create(username, password)
     req.session.user = otherFields
     await req.session.save()
+    console.log(req.session.user)
     res.redirect('/')
   } catch(err) {
     res.status(400).json({error: err.message})
