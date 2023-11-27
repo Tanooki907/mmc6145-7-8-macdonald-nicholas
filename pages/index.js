@@ -28,16 +28,38 @@ export default function Home(props) {
 
   useEffect(() => {
     if (props.isLoggedIn) {
-      fetch('/api/favoriteLocations')
-      .then((response) => response.json())
-      .then((data) => setLocation(data))
-      .catch((error) => console.error('Error fetching favorite locations:', error));
+      const isLoggedIn = props.isLoggedIn;
+      const user = props.user;
+
+      console.log(isLoggedIn);
+      console.log(user);
+
+      fetch('/api/favoriteLocations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ isLoggedIn, user }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Assuming the fetched data is an array of favorite locations
+          // Update the location state with the first location in the array
+          if (data.length > 0) {
+            setLocation(data[0]);
+          }
+        })
+        .catch((error) => console.error('Error fetching favorite locations:', error));
     }
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
     router.push(`/location/${location}`);
+  };
+
+  const handleChange = (e) => {
+    setLocation(e.target.value);
   };
 
   return (
@@ -47,7 +69,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TopBar loggedIn={props.isLoggedIn} locations={location || ''}/>
+      <TopBar loggedIn={props.isLoggedIn} locations={location || ''} />
 
       <main className={styles.main}>
         <h1 className={styles.h1}>Welcome to WeatherNow</h1>
@@ -56,12 +78,13 @@ export default function Home(props) {
             className={styles.input}
             type="text"
             placeholder="Enter a location"
-            value={''}
-            onChange={(e) => setLocation(e.target.value)}
+            value={location}
+            onChange={handleChange}
           />
-          <button className={styles.button} type="submit">Search</button>
+          <button className={styles.button} type="submit">
+            Search
+          </button>
         </form>
-
       </main>
 
       <footer className={styles.footer}>

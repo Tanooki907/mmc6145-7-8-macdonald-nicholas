@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import styles from './[location].module.css'
 import Link from 'next/link'; // Remove when possible - just testing
 import TopBar from '@/components/TopBar';
-import sessionOptions from "../config/session";
+import sessionOptions from '@/config/session';
 import { withIronSessionSsr } from "iron-session/next";
 
 export const getServerSideProps = withIronSessionSsr(
@@ -23,7 +23,7 @@ export const getServerSideProps = withIronSessionSsr(
   sessionOptions
 );
 
-const LocationPage = () => {
+const LocationPage = (props) => {
     const router = useRouter();
     const { location } = router.query;
     const [latitude, setLatitude] = useState(null)
@@ -41,10 +41,58 @@ const LocationPage = () => {
           } catch (error) {
             console.error('Error fetching weather data:', error);
           }
+
+          if (props.isLoggedIn) {
+            const isLoggedIn = props.isLoggedIn;
+            const user = props.user;
+      
+            console.log(isLoggedIn);
+            console.log(user);
+      
+            fetch('/api/favoriteLocations', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ isLoggedIn, user }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Assuming the fetched data is an array of favorite locations
+                // Update the location state with the first location in the array
+                if (data.length > 0) {
+                  setLocation(data[0]);
+                }
+              })
+              .catch((error) => console.error('Error fetching favorite locations:', error));
+          }
         };
       
         fetchWeatherData();
       }, [location]);
+
+      const handleAddToFavorites = async () => {
+        try {
+          const response = await fetch('/api/add-to-favorites', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              location,
+              userId : props.user.id,
+            }),
+          });
+
+          if (response.ok) {
+            console.log('Location added to favorites');
+          } else {
+            console.error('Failed to add location to favorites');
+          }
+        } catch (error) {
+          console.error('Error adding location to favorites:', error);
+        }
+      }
   
       return (
         <div>
@@ -54,16 +102,20 @@ const LocationPage = () => {
       </Head>
 
       <TopBar loggedIn={props.isLoggedIn}/>
-
+      <main className={styles.main}>
           <h1 className={styles.h1}>Weather Information for {location}</h1>
           {latitude && longitude ? (
+            <div>
             <img
             src={`http://www.7timer.info/bin/civil.php?lon=${longitude}&lat=${latitude}&ac=0&lang=en&unit=metric&output=internal&tzshift=0`}
             alt="Weather"
             />
+            </div>
           ) : (
             <p>Loading weather image...</p>
           )}
+          <button className={styles.button} onClick={handleAddToFavorites}>Add to Favorites</button>
+          </main>
           <footer className={styles.footer}>
                 {/* Just for testing purposes */}
                 <Link href={`/location/Gainesville`} style={{color: 'blue', textDecoration: 'underline'}}>
@@ -76,3 +128,4 @@ const LocationPage = () => {
   };
   
   export default LocationPage;
+  // 
