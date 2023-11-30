@@ -22,3 +22,11 @@ export async function fetchFavorites(userId) {
     );
     return [rows];
 }
+
+export async function deleteFav(locationId) {
+  await db.query(
+    `DELETE FROM favorite_locations WHERE id=?`,
+    [locationId]
+  );
+  return;
+}

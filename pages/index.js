@@ -25,6 +25,7 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Home(props) {
   const router = useRouter();
   const [location, setLocation] = useState('');
+  const [favoriteLocations, setFavoriteLocations] = useState([]);
 
   useEffect(() => {
     if (props.isLoggedIn) {
@@ -43,11 +44,7 @@ export default function Home(props) {
       })
         .then((response) => response.json())
         .then((data) => {
-          // Assuming the fetched data is an array of favorite locations
-          // Update the location state with the first location in the array
-          if (data.length > 0) {
-            setLocation(data[0]);
-          }
+          setFavoriteLocations(data);
         })
         .catch((error) => console.error('Error fetching favorite locations:', error));
     }
@@ -69,7 +66,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TopBar loggedIn={props.isLoggedIn} locations={location || ''} />
+      <TopBar loggedIn={props.isLoggedIn} locations={favoriteLocations} />
 
       <main className={styles.main}>
         <h1 className={styles.h1}>Welcome to WeatherNow</h1>
@@ -78,7 +75,6 @@ export default function Home(props) {
             className={styles.input}
             type="text"
             placeholder="Enter a location"
-            value={location}
             onChange={handleChange}
           />
           <button className={styles.button} type="submit">

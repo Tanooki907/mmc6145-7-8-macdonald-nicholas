@@ -28,6 +28,7 @@ const LocationPage = (props) => {
     const { location } = router.query;
     const [latitude, setLatitude] = useState(null)
     const [longitude, setLongitude] = useState(null)
+    const [favoriteLocations, setFavoriteLocations] = useState([]);
   
     useEffect(() => {
         const fetchWeatherData = async () => {
@@ -58,18 +59,14 @@ const LocationPage = (props) => {
             })
               .then((response) => response.json())
               .then((data) => {
-                // Assuming the fetched data is an array of favorite locations
-                // Update the location state with the first location in the array
-                if (data.length > 0) {
-                  setLocation(data[0]);
-                }
+                setFavoriteLocations(data);
               })
               .catch((error) => console.error('Error fetching favorite locations:', error));
           }
         };
       
         fetchWeatherData();
-      }, [location]);
+      }, []);
 
       const handleAddToFavorites = async () => {
         try {
@@ -101,7 +98,7 @@ const LocationPage = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TopBar loggedIn={props.isLoggedIn}/>
+      <TopBar loggedIn={props.isLoggedIn} locations={favoriteLocations}/>
       <main className={styles.main}>
           <h1 className={styles.h1}>Weather Information for {location}</h1>
           {latitude && longitude ? (

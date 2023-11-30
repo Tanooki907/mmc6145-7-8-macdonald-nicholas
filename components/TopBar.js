@@ -23,6 +23,7 @@ const TopBar = ({ loggedIn, locations }) => {
       // Display an error message or perform any other necessary actions
     });
   }
+  console.log(locations)
 
   return (
     <div className="top-bar">
@@ -34,7 +35,7 @@ const TopBar = ({ loggedIn, locations }) => {
       <div className="right-section">
         {loggedIn ? (
           <>
-            {locations && Array.isArray(locations) && locations.length > 0 && (
+            {locations && locations.length > 0 && (
               <div className="locations-dropdown">
                 <span className="dropdown-label" style={{ marginRight: '10px' }}>Locations</span>
                 <ul className="dropdown-menu">
