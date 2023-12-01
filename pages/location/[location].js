@@ -29,6 +29,7 @@ const LocationPage = (props) => {
     const [latitude, setLatitude] = useState(null)
     const [longitude, setLongitude] = useState(null)
     const [favoriteLocations, setFavoriteLocations] = useState([]);
+    const [isSaved, setIsSaved] = useState(false);
   
     useEffect(() => {
         const fetchWeatherData = async () => {
@@ -63,10 +64,17 @@ const LocationPage = (props) => {
               })
               .catch((error) => console.error('Error fetching favorite locations:', error));
           }
+          console.log('Favorite Locations:', favoriteLocations);
+          const isLocationSaved = favoriteLocations.some((favLocation) =>
+            favLocation.location === location)
+          if (isLocationSaved) {
+            setIsSaved(true);
+          }
         };
-      
+
+
         fetchWeatherData();
-      }, []);
+      }, [location]);
 
       const handleAddToFavorites = async () => {
         try {
@@ -83,6 +91,7 @@ const LocationPage = (props) => {
 
           if (response.ok) {
             console.log('Location added to favorites');
+            setIsSaved(true);
           } else {
             console.error('Failed to add location to favorites');
           }
@@ -111,7 +120,15 @@ const LocationPage = (props) => {
           ) : (
             <p>Loading weather image...</p>
           )}
-          <button className={styles.button} onClick={handleAddToFavorites}>Add to Favorites</button>
+          {props.isLoggedIn === true ? (
+          <button className={`${isSaved ? styles.saved
+          : styles.button}`}
+          onClick={handleAddToFavorites}
+          disabled={isSaved}>{isSaved ? 'Location Saved' : 'Add to Favorites'}
+          </button>
+          ) : (
+            <p>Sign in to save this location!</p>
+          )}
           </main>
           <footer className={styles.footer}>
                 {/* Just for testing purposes */}
@@ -125,4 +142,3 @@ const LocationPage = (props) => {
   };
   
   export default LocationPage;
-  // 

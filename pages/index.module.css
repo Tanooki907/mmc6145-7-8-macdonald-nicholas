@@ -36,3 +36,8 @@
     margin-top: 2rem;
     text-align: center;
   }
+
+  .saved {
+    background-color: red;
+    color: white;
+  }
