@@ -64,7 +64,6 @@ const LocationPage = (props) => {
               })
               .catch((error) => console.error('Error fetching favorite locations:', error));
           }
-          console.log('Favorite Locations:', favoriteLocations);
           const isLocationSaved = favoriteLocations.some((favLocation) =>
             favLocation.location === location)
           if (isLocationSaved) {
@@ -111,15 +110,11 @@ const LocationPage = (props) => {
       <main className={styles.main}>
           <h1 className={styles.h1}>Weather Information for {location}</h1>
           {latitude && longitude ? (
-            <div>
+            <div className={`${styles.main} ${styles.imageContainer}`}>
             <img
             src={`http://www.7timer.info/bin/civil.php?lon=${longitude}&lat=${latitude}&ac=0&lang=en&unit=metric&output=internal&tzshift=0`}
             alt="Weather"
             />
-            </div>
-          ) : (
-            <p>Loading weather image...</p>
-          )}
           {props.isLoggedIn === true ? (
           <button className={`${isSaved ? styles.saved
           : styles.button}`}
@@ -129,12 +124,12 @@ const LocationPage = (props) => {
           ) : (
             <p>Sign in to save this location!</p>
           )}
+            </div>
+          ) : (
+            <p>Loading weather image...</p>
+          )}
           </main>
           <footer className={styles.footer}>
-                {/* Just for testing purposes */}
-                <Link href={`/location/Gainesville`} style={{color: 'blue', textDecoration: 'underline'}}>
-          Testing the Link for Gainesville
-        </Link>
         <p>© {new Date().getFullYear()} WeatherNow. All rights reserved.</p>
       </footer>
         </div>

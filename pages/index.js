@@ -66,7 +66,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TopBar loggedIn={props.isLoggedIn} locations={favoriteLocations} />
+      <TopBar className={styles.TopBar}loggedIn={props.isLoggedIn} locations={favoriteLocations} />
 
       <main className={styles.main}>
         <h1 className={styles.h1}>Welcome to WeatherNow</h1>

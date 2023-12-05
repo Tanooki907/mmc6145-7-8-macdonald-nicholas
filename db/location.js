@@ -17,7 +17,7 @@ export async function addToFavorites(userId, location) {
 
 export async function fetchFavorites(userId) {
     const [rows] = await db.query(
-        `SELECT * FROM favorite_locations WHERE user_id = ?`,
+        `SELECT id, location FROM favorite_locations WHERE user_id = ? ORDER BY location ASC`,
         [userId]
     );
     return [rows];

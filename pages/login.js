@@ -55,7 +55,13 @@ const Login = () => {
                 <button className={styles.button} type="submit">Login</button>
             </form>
 
-            <Link href="/signup" style={{color: 'blue', textDecoration: 'underline'}}>
+            <Link href="/signup" style={{color: '#007bff', textDecoration: 'none', transition: 'color 0.3s ease'}}
+            onMouseEnter={(e) => {
+                e.target.style.color = '#0056b3';
+            }}
+            onMouseLeave={(e) => {
+                e.target.style.color = '#007bff';
+            }}>
                 Don't have an account yet? Signup
             </Link>
 

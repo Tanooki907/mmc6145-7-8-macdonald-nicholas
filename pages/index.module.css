@@ -1,43 +1,140 @@
-  .main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  .h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .form {
-    display: flex;
-    align-items: center;
-  }
-  
-  .input {
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .button {
-    padding: 0.5rem 1rem;
-    background-color: #0070f3;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .footer {
-    margin-top: 2rem;
-    text-align: center;
-  }
+/* Main container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5; /* Change to your desired background color */
+}
 
-  .saved {
-    background-color: red;
-    color: white;
+/* TopBar component */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.topbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.topbar-logo:hover {
+  color: #ff0000; /* Change to your desired hover color */
+}
+
+.topbar-locations {
+  display: flex;
+  gap: 10px;
+}
+
+.topbar-locations a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.topbar-locations a:hover {
+  color: #ff0000; /* Change to your desired hover color */
+}
+
+/* Main section */
+.main {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #ffffff; /* Change to your desired background color */
+}
+
+.main h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
+
+.main form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.main input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.main input[type="text"]:focus {
+  border-color: #ff0000; /* Change to your desired focus color */
+}
+
+.main input[type="password"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.main input[type="password"]:focus {
+  border-color: #ff0000; /* Change to your desired focus color */
+}
+
+.main button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ff0000; /* Change to your desired button color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.main button:hover {
+  background-color: #cc0000; /* Change to your desired hover color */
+}
+
+.buttonMargin {
+  margin-left: 10px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+
+.footer p {
+  font-size: 14px;
+  color: #777;
+}
+
+.footer a {
+  color: #777;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

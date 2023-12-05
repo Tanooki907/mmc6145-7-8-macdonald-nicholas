@@ -46,7 +46,7 @@ export default function Profile(props) {
           })
           .catch((error) => console.error('Error fetching favorite locations:', error));
       }
-    }, []);
+    });
 
     const handleDelete = async (locationId) => {
       try {
@@ -101,13 +101,14 @@ export default function Profile(props) {
           <ul>
             {favoriteLocations.map((location) => (
               <li key={location.id}>
-                {location.location} - 
+                {location.location}
                 <button
-                className={styles.button}
+                className={`${styles.button} ${styles.buttonMargin}`}
                 onClick={() => handleDelete(location.id)}
                 >
                   Delete
                 </button>
+                <br />
               </li>
             ))}
           </ul>
