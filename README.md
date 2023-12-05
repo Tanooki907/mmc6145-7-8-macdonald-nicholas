@@ -1,40 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WeatherNow
 
-## Getting Started
+WeatherNow is a NextJS and React application that provides real-time weather information to its users. It solves the problem of quickly accessing accurate weather forecasts for any location.
 
-First, run the development server:
+## Purpose and Inspiration
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The purpose of WeatherNow is to provide users with a user-friendly and reliable weather forecasting experience. The inspiration behind its creation is the need for a fast and efficient way to access accurate weather forecasts for different locations. With WeatherNow, users can easily register, log in, and search for weather forecasts based on their preferred locations.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technology Used
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+WeatherNow utilized the following technologies:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- NextJS: NextJS is a React framework that enables server-side rendering and provides a great developer experience for building modern web applications.
+- React: React is a JavaScript library for building user interfaces. It allows for efficient component-based development and provides a seamless user experience.
+- MySQL: MySQL is used as the database solution for storing user profiles and favorite locations. It provides a reliable and scalable way to manage data.
+- Third-Party Weather API: WeatherNow integrates with a third-party weather API, such as 7Timer! and wttr.in, to fetch real-time weather data for different locations. This ensures accurate and up-to-date weather information.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Contributing to the Project
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Contributions to WeatherNow are welcome! To contribute to the project, please follow these steps:
 
-## Learn More
+1. Fork the repository on GitHub.
+2. Clone the forked repository to your local machine.
+3. Install the necessary dependencies by running `npm install`.
+4. Set up the required environmental variables. You will need to provide the password for IronPass. This environmental variable can be set in a `.env.local` file in the root directory of the project.
+5. Start the development server by running `npm run dev`.
+6. Make your desired changes or additions to the codebase.
+7. Write tests for your changes, if applicable.
+8. Commit and push your changes to your forked repository.
+9. Create a pull request from your forked repository to the main repository.
+10. Wait for the project maintainers to review and merge your pull request.
 
-To learn more about Next.js, take a look at the following resources:
+Please ensure that your contributions adhere to the project's coding standards and follow best practices. Additionally, it is recommended to discuss major changes or new features with the project maintainers before starting any significant work.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Thank you for considering contributing to WeatherNow!
+Your contributions are greatly appreciated.
