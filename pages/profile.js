@@ -90,13 +90,13 @@ export default function Profile(props) {
     return(
       <div>
         <Head>
-          <title>{props.user.username}'s Settings</title>
+          <title>{props.user.username}&apos;s Settings</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
         <TopBar loggedIn={true} locations={favoriteLocations} />
         <main className={styles.main}>
-          <h1>{props.user.username}'s Settings</h1>
+          <h1>{props.user.username}&apos;s Settings</h1>
           <h2>Your Favorite Locations:</h2>
           <ul>
             {favoriteLocations.map((location) => (

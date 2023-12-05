@@ -62,7 +62,7 @@ const Login = () => {
             onMouseLeave={(e) => {
                 e.target.style.color = '#007bff';
             }}>
-                Don't have an account yet? Signup
+                Don&apos;t have an account yet? Signup
             </Link>
 
             </main>
