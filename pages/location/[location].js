@@ -112,7 +112,7 @@ const LocationPage = (props) => {
           {latitude && longitude ? (
             <div className={`${styles.main} ${styles.imageContainer}`}>
             <img
-            src={`http://www.7timer.info/bin/civil.php?lon=${longitude}&lat=${latitude}&ac=0&lang=en&unit=metric&output=internal&tzshift=0`}
+            src={`http://www.7timer.info/bin/civil.php?lon=${longitude}&lat=${latitude}&ac=0&lang=en&unit=british&output=internal&tzshift=0`}
             alt="Weather"
             />
           {props.isLoggedIn === true ? (
